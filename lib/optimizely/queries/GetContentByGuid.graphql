@@ -1,0 +1,14 @@
+query GetContentByGuid($guid: String!) {
+  _Content(where: { _metadata: { key: { eq: $guid } } }) {
+    items {
+      ... on StartPage {
+        title
+      }
+      _metadata {
+        displayName
+        key
+        types
+      }
+    }
+  }
+}
