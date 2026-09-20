@@ -1,13 +1,200 @@
-import { optimizely } from "./opimizely-client";
+import { fetchOptimizely } from "./optimizely/fetch";
 
-const homePageGuid =
-  process.env.OPTIMIZELY_CONTENT_GUID ??
-  "d1c333bbc5f14e7baf56e514cd420a20";
+const homePageGuid = process.env.OPTIMIZELY_CONTENT_GUID ?? "78baa97ec67641e28b7b6f83ca3414d6";
+
+function toUrl(value: unknown): string {
+  if (typeof value === "string") return value;
+  if (!value || typeof value !== "object") return "";
+
+  const record = value as Record<string, unknown>;
+
+  if (typeof record.default === "string") return record.default as string;
+  if (typeof record.url === "string") return record.url as string;
+  if (typeof record.href === "string") return record.href as string;
+  if (typeof record.internal === "string") return record.internal as string;
+  if (record.url && typeof record.url === "object") {
+    const nested = record.url as Record<string, unknown>;
+    if (typeof nested.default === "string") return nested.default as string;
+    if (typeof nested.internal === "string") return nested.internal as string;
+  }
+
+  return "";
+}
+
+function toImage(value: unknown): Record<string, string> {
+  if (!value) return { url: "", alternativeText: "" };
+
+  if (typeof value === "string") {
+    return { url: value, alternativeText: "" };
+  }
+
+  const record = value as Record<string, unknown>;
+  const imageRef = record.imageLink ?? record;
+  const url = toUrl((imageRef as Record<string, unknown>)?.url ?? imageRef);
+  const altText =
+    typeof record.altText === "string"
+      ? record.altText
+      : typeof record.alternativeText === "string"
+        ? record.alternativeText
+        : "";
+
+  return {
+    url,
+    alternativeText: altText,
+  };
+}
+
+function normalizeBlock(block: Record<string, unknown>): Record<string, unknown> {
+  const __typename = String(block.__typename ?? "");
+
+  switch (__typename) {
+    case "DOCHeroBlock": {
+      return {
+        __typename,
+        title: block.Heading ?? block.title ?? "",
+        subtitle: block.Subtitle ?? "",
+        description: block.Description ?? block.description ?? "",
+        primaryCtaLabel: block.PrimaryButtonText ?? block.primaryCtaLabel ?? "Book Appointment",
+        primaryCtaUrl: toUrl(block.PrimaryButtonLink ?? block.primaryCtaUrl),
+        secondaryCtaLabel: block.SecondaryButtonTextDOC ?? block.secondaryCtaLabel ?? "Find a Doctor",
+        secondaryCtaUrl: toUrl(block.SecondaryButtonLink ?? block.secondaryCtaUrl),
+        image: toImage(block.HeroImage ?? block.image),
+      };
+    }
+    case "StatisticsBlockDOC": {
+      const items = Array.isArray(block.Items) ? block.Items : Array.isArray(block.items) ? block.items : [];
+      return {
+        __typename,
+        title: block.Heading ?? block.title ?? "",
+        statistics: items.map((item) => ({
+          value: (item as Record<string, unknown>)?.Value ?? (item as Record<string, unknown>)?.value ?? "",
+          label: (item as Record<string, unknown>)?.Label ?? (item as Record<string, unknown>)?.label ?? "",
+        })),
+      };
+    }
+    case "SpecialtyListBlockDOC": {
+      const items = Array.isArray(block.items) ? block.items : Array.isArray(block.Items) ? block.Items : [];
+      return {
+        __typename,
+        title: block.Heading ?? block.title ?? "Our Specialties",
+        items: items.map((item) => {
+          const record = item as Record<string, unknown>;
+          return {
+            name: record.Name ?? record.name ?? "",
+            title: record.Title ?? record.title ?? "",
+            description: record.Description ?? record.description ?? "",
+            image: toImage(record.Image ?? record.image),
+          };
+        }),
+      };
+    }
+    case "TelehealthBlockDOC": {
+      return {
+        __typename,
+        title: block.Heading ?? block.Title ?? block.title ?? "Care from the comfort of home",
+        description: block.Description ?? block.Body ?? block.description ?? "Connect with our specialists via secure video consultation.",
+        heading: block.Heading ?? block.Title ?? block.heading ?? "Care from the comfort of home",
+        image: toImage(block.Image ?? block.image),
+        benefits: Array.isArray(block.Benefits) ? block.Benefits : Array.isArray(block.benefits) ? block.benefits : [],
+      };
+    }
+    case "DoctorListBlockDOC": {
+      const items = Array.isArray(block.Doctors) ? block.Doctors : Array.isArray(block.doctors) ? block.doctors : [];
+      return {
+        __typename,
+        title: block.Heading ?? block.title ?? "Meet Our Doctors",
+        items: items.map((item) => {
+          const record = item as Record<string, unknown>;
+          return {
+            name: record.Name ?? record.name ?? "",
+            role: record.Role ?? record.role ?? "",
+            description: record.Description ?? record.description ?? "",
+            image: toImage(record.Image ?? record.image),
+          };
+        }),
+      };
+    }
+    case "TestimonialListBlockDOC": {
+      const items = Array.isArray(block.Testimonials) ? block.Testimonials : Array.isArray(block.testimonials) ? block.testimonials : [];
+      return {
+        __typename,
+        title: block.Heading ?? block.title ?? "Testimonials",
+        items: items.map((item) => {
+          const record = item as Record<string, unknown>;
+          return {
+            quote: record.Quote ?? record.quote ?? "",
+            name: record.PatientName ?? record.name ?? "",
+            title: record.Role ?? record.title ?? "",
+            image: toImage(record.PatientPhoto ?? record.image),
+          };
+        }),
+      };
+    }
+    case "InsurancePartnerListBlockDOC": {
+      const items = Array.isArray(block.Partners) ? block.Partners : Array.isArray(block.partners) ? block.partners : [];
+      return {
+        __typename,
+        title: block.Heading ?? block.Title ?? block.title ?? "Our Insurance Partners",
+        items: items.map((item) => {
+          const record = item as Record<string, unknown>;
+          return {
+            name: record.Name ?? record.name ?? "",
+            logo: toImage(record.Logo ?? record.logo),
+          };
+        }),
+      };
+    }
+    case "EmergencyBannerDOC": {
+      return {
+        __typename,
+        title: block.Heading ?? block.Title ?? block.title ?? "Medical Emergency?",
+        description: block.Description ?? block.Body ?? block.description ?? "We are available 24/7",
+        phoneNumber: block.PhoneNumber ?? block.phoneNumber ?? "",
+        ctaLabel: block.ButtonText ?? block.CTAButtonText ?? block.ctaLabel ?? "Call Now",
+        ctaUrl: toUrl(block.ButtonLink ?? block.ctaUrl),
+      };
+    }
+    default:
+      return block;
+  }
+}
 
 export async function getHomePage() {
-  const data = await optimizely.GetContentByGuid({
-    guid: homePageGuid,
-  });
+  const query = `
+    query GetHomePage($guid: String!) {
+      DOCHomePage(where: { _metadata: { key: { eq: $guid } } }) {
+        item {
+          _json
+        }
+      }
+    }
+  `;
 
-  return data;
+  const response = await fetchOptimizely<{
+    DOCHomePage?: {
+      item?: {
+        _json?: Record<string, unknown>;
+      };
+    };
+  }>(query, { guid: homePageGuid });
+
+  const pageJson = response?.DOCHomePage?.item?._json as Record<string, unknown> | undefined;
+  if (!pageJson) {
+    return { _Content: { items: [] } };
+  }
+
+  const blocks = Array.isArray(pageJson.DOCMainContentArea)
+    ? pageJson.DOCMainContentArea.map((block) => normalizeBlock(block as Record<string, unknown>))
+    : [];
+
+  return {
+    _Content: {
+      items: [
+        {
+          ...pageJson,
+          DOCMainContentArea: blocks,
+        },
+      ],
+    },
+  };
 }
