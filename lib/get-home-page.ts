@@ -66,10 +66,14 @@ function normalizeBlock(block: Record<string, unknown>): Record<string, unknown>
       return {
         __typename,
         title: block.Heading ?? block.title ?? "",
-        statistics: items.map((item) => ({
-          value: (item as Record<string, unknown>)?.Value ?? (item as Record<string, unknown>)?.value ?? "",
-          label: (item as Record<string, unknown>)?.Label ?? (item as Record<string, unknown>)?.label ?? "",
-        })),
+        statistics: items.map((item) => {
+          const record = item as Record<string, unknown>;
+          return {
+            value: record.Value ?? record.value ?? "",
+            label: record.Label ?? record.label ?? "",
+            icon: record.Icon ?? record.icon ?? "heart",
+          };
+        }),
       };
     }
     case "SpecialtyListBlockDOC": {

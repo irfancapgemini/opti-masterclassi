@@ -16,28 +16,36 @@ export function TelehealthSection({ data }: TelehealthSectionProps) {
   return (
     <section className="medicare-telehealth">
       <div className="medicare-telehealth-copy">
-        <div>
-          <p className="medicare-eyebrow">Telehealth</p>
-          <h2>{title || "Consult a Doctor from the Comfort of Your Home"}</h2>
-          <p>{description}</p>
-          <div className="medicare-benefits">
-            {benefits.map((benefit, index) => (
-              <div key={`${benefit?.title ?? "benefit"}-${index}`}>
-                <span>✓</span><div><h3>{String(benefit?.title ?? "Benefit")}</h3>
-                {benefit?.description ? <p>{String(benefit.description)}</p> : null}</div>
+        <p className="medicare-eyebrow">Telehealth</p>
+        <h2>{title || "Consult a Doctor from the Comfort of Your Home"}</h2>
+        <p className="medicare-telehealth-description">{description}</p>
+
+        <button type="button" className="medicare-telehealth-cta">
+          <span aria-hidden="true">◉</span>
+          Start Teleconsultation
+        </button>
+
+        <div className="medicare-benefits">
+          {benefits.map((benefit, index) => (
+            <div key={`${benefit?.title ?? "benefit"}-${index}`}>
+              <span>✓</span>
+              <div>
+                <h3>{String(benefit?.title ?? "Benefit")}</h3>
+                {benefit?.description ? <p>{String(benefit.description)}</p> : null}
               </div>
-            ))}
-          </div>
-        </div>
-        <div className="medicare-telehealth-image-wrap">
-          {imageUrl ? (
-            <Image src={imageUrl} alt={String(image.alternativeText ?? "Telehealth consultation")} width={720} height={420} className="medicare-telehealth-image" />
-          ) : (
-            <div className="medicare-telehealth-placeholder">
-              Virtual Care
             </div>
-          )}
+          ))}
         </div>
+      </div>
+
+      <div className="medicare-telehealth-image-wrap">
+        {imageUrl ? (
+          <Image src={imageUrl} alt={String(image.alternativeText ?? "Telehealth consultation")} width={720} height={420} className="medicare-telehealth-image" />
+        ) : (
+          <div className="medicare-telehealth-placeholder">
+            Virtual Care
+          </div>
+        )}
       </div>
     </section>
   );
