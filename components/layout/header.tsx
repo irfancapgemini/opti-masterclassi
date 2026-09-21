@@ -53,9 +53,9 @@ export function Header({ settings }: { settings?: CmsSettings }) {
             <Image
               src={logoUrl}
               alt={String(logo?.alternativeText ?? siteName ?? "Brand logo")}
-              width={140}
-              height={32}
-              className="h-8 w-auto object-contain"
+              width={220}
+              height={44}
+              className="h-12 w-auto object-contain"
             />
           ) : (
             <span className="medicare-brand-mark">✚</span>
