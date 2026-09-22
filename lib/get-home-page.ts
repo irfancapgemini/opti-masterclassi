@@ -1,6 +1,7 @@
 import { fetchOptimizely } from "./optimizely/fetch";
 
-const homePageGuid = process.env.OPTIMIZELY_CONTENT_GUID ?? "78baa97ec67641e28b7b6f83ca3414d6";
+const configuredHomePageUrl = process.env.OPTIMIZELY_START_PAGE_URL ?? "home";
+const homePageUrl = `/${configuredHomePageUrl.replace(/^\/+|\/+$/g, "")}/`;
 
 function toUrl(value: unknown): string {
   if (typeof value === "string") return value;
@@ -165,8 +166,17 @@ function normalizeBlock(block: Record<string, unknown>): Record<string, unknown>
 
 export async function getHomePage() {
   const query = `
-    query GetHomePage($guid: String!) {
-      DOCHomePage(where: { _metadata: { key: { eq: $guid } } }) {
+    query GetHomePage($url: String!) {
+      DOCHomePage(
+        where: {
+          _or: [
+            { _metadata: { url: { default: { eq: $url } } } }
+            { _metadata: { url: { hierarchical: { eq: $url } } } }
+            { _metadata: { url: { internal: { eq: $url } } } }
+            { _metadata: { url: { graph: { eq: $url } } } }
+          ]
+        }
+      ) {
         item {
           _json
         }
@@ -180,7 +190,7 @@ export async function getHomePage() {
         _json?: Record<string, unknown>;
       };
     };
-  }>(query, { guid: homePageGuid });
+  }>(query, { url: homePageUrl });
 
   const pageJson = response?.DOCHomePage?.item?._json as Record<string, unknown> | undefined;
   if (!pageJson) {
