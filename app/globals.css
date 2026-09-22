@@ -128,3 +128,250 @@
     @apply font-sans;
   }
 }
+
+:root {
+  --medicare-ink: #102d50;
+  --medicare-blue: #0758d8;
+  --medicare-teal: #08a99b;
+  --medicare-pale: #eef6fc;
+  --medicare-line: #dbe7f0;
+}
+
+body { background: #fff; color: var(--medicare-ink); font-family: Arial, sans-serif; }
+a { text-decoration: none; }
+.medicare-header { background: #f4f4f4; border-bottom: 1px solid #dde7ef; position: relative; z-index: 2; }
+.medicare-nav { align-items: center; display: flex; gap: 28px; justify-content: space-between; margin: auto; max-width: 1400px; min-height: 80px; padding: 0 18px; }
+.medicare-brand { align-items: center; color: var(--medicare-ink); display: flex; font-size: 17px; gap: 12px; line-height: 1; }
+.medicare-brand strong, .medicare-brand small { display: block; }
+.medicare-brand strong { color: #0b5fb8; font-size: 28px; font-weight: 700; letter-spacing: -0.04em; }
+.medicare-brand small { color: #5a7088; font-size: 11px; margin-top: 4px; }
+.medicare-brand-mark { align-items: center; background: linear-gradient(135deg, #0c7fcb 0%, #0a5fb8 100%); border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35); color: #fff; display: flex; font-size: 22px; height: 35px; justify-content: center; width: 35px; }
+.medicare-links { display: flex; flex: 1; gap: 26px; justify-content: center; }
+.medicare-links a, .medicare-login { color: #1f2d3d; font-size: 15px; }
+.medicare-links a { font-weight: 500; }
+.medicare-links a:hover, .medicare-login:hover { color: var(--medicare-blue); }
+.medicare-actions { align-items: center; display: flex; gap: 14px; }
+.medicare-search { align-items: center; color: #1f2d3d; display: inline-flex; font-size: 24px; justify-content: center; line-height: 1; }
+.medicare-login {
+  background: #fff;
+  border: 1px solid #b8d3f7;
+  border-radius: 8px;
+  color: var(--medicare-blue);
+  font-weight: 500;
+  padding: 11px 20px;
+}
+.medicare-header-cta, .medicare-primary-button {
+  background: var(--medicare-blue);
+  border: 1px solid var(--medicare-blue);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 12px 20px;
+}
+.medicare-page { background: #fff; }
+.medicare-content { margin: auto; max-width: 1180px; padding: 0 22px 45px; }
+.medicare-content > * { margin-top: 28px; }
+.medicare-hero { background: linear-gradient(100deg, #edf7fd 0%, #f5f9fb 59%, #e7f0f5 100%); min-height: 390px; overflow: hidden; position: relative; }
+.medicare-hero-inner { display: grid; grid-template-columns: 42% 58%; margin: auto; max-width: 1180px; min-height: 390px; }
+.medicare-hero-inner > div:first-child { align-self: center; padding: 40px 0 58px 22px; position: relative; z-index: 1; }
+.medicare-eyebrow { color: #607487; font-size: 11px; margin: 0 0 12px; }
+.medicare-hero h1 { color: var(--medicare-ink); font-size: clamp(36px, 4vw, 56px); letter-spacing: -1.6px; line-height: .97; margin: 0; max-width: 405px; }
+.medicare-hero h1 em { color: var(--medicare-teal); font-style: normal; }
+.medicare-hero h1::first-line { color: var(--medicare-ink); }
+.medicare-hero-copy { color: #52677c; font-size: 12px; line-height: 1.5; margin: 18px 0; max-width: 350px; }
+.medicare-hero-actions { display: flex; gap: 12px; }
+.medicare-primary-button, .medicare-secondary-button { align-items: center; display: inline-flex; gap: 7px; }
+.medicare-secondary-button { border: 1px solid #b8d0ed; border-radius: 5px; color: var(--medicare-blue); font-size: 10px; font-weight: 700; padding: 10px 14px; }
+.medicare-hero-image-wrap { align-self: stretch; position: relative; }
+.medicare-hero-image { height: 100%; object-fit: cover; object-position: center; width: 100%; }
+.medicare-hero-placeholder { align-items: center; color: var(--medicare-blue); display: flex; height: 100%; justify-content: center; }
+.medicare-stats { background: #fff; border-radius: 14px; box-shadow: 0 7px 20px #adc9df44; margin: -54px auto 0; max-width: 760px; position: relative; z-index: 1; }
+.medicare-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.medicare-stat { align-items: center; border-right: 1px solid #edf1f4; display: flex; gap: 9px; justify-content: center; min-height: 70px; }
+.medicare-stat:last-child { border-right: 0; }
+.medicare-stat-icon { color: var(--medicare-blue); font-size: 22px; }
+.medicare-stat strong, .medicare-stat span { display: block; }
+.medicare-stat strong { color: var(--medicare-blue); font-size: 14px; }
+.medicare-stat span { color: #536577; font-size: 8px; margin-top: 4px; }
+.medicare-section { padding-top: 2px; }
+.medicare-section-heading { align-items: center; display: flex; justify-content: space-between; margin-bottom: 12px; }
+.medicare-section-heading h2, .medicare-insurance h2 { color: var(--medicare-ink); font-size: 17px; margin: 0; }
+.medicare-section-heading a { color: var(--medicare-blue); font-size: 9px; font-weight: 700; }
+.medicare-specialty-grid { display: grid; gap: 10px; grid-template-columns: repeat(6, 1fr); }
+.medicare-specialty-card { border: 1px solid var(--medicare-line); border-radius: 8px; min-height: 140px; padding: 12px 8px; text-align: center; }
+.medicare-specialty-icon { align-items: center; background: #daf6f0; border-radius: 50%; color: var(--medicare-teal); display: flex; font-size: 20px; height: 46px; justify-content: center; margin: 0 auto 8px; width: 46px; }
+.medicare-specialty-card h3 { font-size: 11px; margin: 0; }
+.medicare-specialty-card p, .medicare-specialty-card small { color: #5f6f80; display: block; font-size: 8px; line-height: 1.35; margin-top: 4px; }
+.medicare-specialty-card a { color: var(--medicare-blue); display: block; font-size: 8px; font-weight: 700; margin-top: 6px; }
+.medicare-telehealth {
+  align-items: center;
+  background: #f3f5f7;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: 1.05fr 1.15fr;
+  min-height: 380px;
+  overflow: hidden;
+  padding: 28px 20px 28px 24px;
+}
+.medicare-telehealth-copy {
+  align-self: center;
+  max-width: 560px;
+  padding-left: 4px;
+}
+.medicare-telehealth .medicare-eyebrow {
+  color: #6d7a87;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 0 0 18px;
+  text-transform: none;
+}
+.medicare-telehealth h2 {
+  color: #0f2d4f;
+  font-size: clamp(2.4rem, 3vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+  margin: 0;
+  max-width: 540px;
+}
+.medicare-telehealth h2 em,
+.medicare-telehealth h2 strong {
+  color: #0fa8a3;
+  font-style: normal;
+}
+.medicare-telehealth-description {
+  color: #53677c;
+  font-size: 17px;
+  line-height: 1.5;
+  margin: 22px 0 26px;
+  max-width: 440px;
+}
+.medicare-telehealth-cta {
+  align-items: center;
+  background: #0ea5a5;
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 16px 22px;
+}
+.medicare-telehealth-cta span {
+  font-size: 20px;
+}
+.medicare-benefits {
+  display: grid;
+  gap: 10px;
+  margin-top: 26px;
+}
+.medicare-benefits > div {
+  align-items: flex-start;
+  display: flex;
+  gap: 10px;
+}
+.medicare-benefits > div > span {
+  color: #0ea5a5;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.medicare-benefits h3 {
+  color: #102d50;
+  font-size: 15px;
+  margin: 0;
+}
+.medicare-benefits p {
+  color: #667789;
+  font-size: 12px;
+  margin: 3px 0 0;
+}
+.medicare-telehealth-image-wrap {
+  height: 100%;
+  min-height: 290px;
+  position: relative;
+}
+.medicare-telehealth-image {
+  border-radius: 18px;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+.medicare-telehealth-placeholder {
+  align-items: center;
+  background: linear-gradient(135deg, #dfeaf4, #e8f6fb);
+  border-radius: 18px;
+  color: var(--medicare-teal);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  min-height: 290px;
+}
+.medicare-doctor-grid { display: grid; gap: 10px; grid-template-columns: repeat(4, 1fr); }
+.medicare-doctor-card { border: 1px solid var(--medicare-line); border-radius: 8px; overflow: hidden; }
+.medicare-doctor-image { background: #e8f3f8; height: 120px; object-fit: cover; width: 100%; }
+.medicare-doctor-fallback { align-items: center; color: var(--medicare-blue); display: flex; font-size: 32px; justify-content: center; }
+.medicare-doctor-copy { padding: 9px 10px 11px; }
+.medicare-doctor-copy h3 { font-size: 10px; margin: 0; }
+.medicare-doctor-copy p { color: var(--medicare-blue); font-size: 8px; margin: 3px 0; }
+.medicare-doctor-copy small { color: #657487; display: block; font-size: 8px; min-height: 25px; }
+.medicare-doctor-copy button { background: #fff; border: 1px solid #bcd2ef; border-radius: 4px; color: var(--medicare-blue); font-size: 8px; margin-top: 6px; padding: 5px 12px; width: 100%; }
+.medicare-testimonial-grid { display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); }
+.medicare-testimonial-card { border: 1px solid var(--medicare-line); border-radius: 9px; margin: 0; min-height: 115px; padding: 13px; }
+.medicare-stars { color: #f3a620; font-size: 12px; letter-spacing: 1px; }
+.medicare-testimonial-card > p { color: #536579; font-size: 9px; line-height: 1.4; margin: 8px 0; }
+.medicare-testimonial-card footer { align-items: center; display: flex; gap: 7px; }
+.medicare-avatar { align-items: center; background: #dceefa; border-radius: 50%; color: var(--medicare-blue); display: flex; font-size: 10px; height: 24px; justify-content: center; width: 24px; }
+.medicare-testimonial-card footer div:last-child { font-size: 8px; }
+.medicare-testimonial-card footer div:last-child div:last-child { color: #7a8793; margin-top: 2px; }
+.medicare-insurance { align-items: center; display: grid; grid-template-columns: 150px 1fr; }
+.medicare-insurance h2 { font-size: 13px; }
+.medicare-insurance-grid { display: flex; gap: 18px; }
+.medicare-insurance-logo { align-items: center; display: flex; height: 45px; justify-content: center; min-width: 80px; }
+.medicare-insurance-logo img { max-height: 31px; max-width: 80px; }
+.medicare-insurance-logo span { color: #355a8c; font-size: 11px; font-weight: 700; }
+.medicare-emergency { align-items: center; background: #fff5f5; border: 1px solid #f8d8d8; border-radius: 8px; display: flex; justify-content: space-between; padding: 11px 18px; }
+.medicare-emergency p { color: #ef4444; font-size: 11px; font-weight: 700; margin: 0; }
+.medicare-emergency h2 { display: none; }
+.medicare-emergency small { color: #9b7373; font-size: 8px; }
+.medicare-emergency-contact { align-items: center; display: flex; gap: 10px; }
+.medicare-emergency-contact span { color: #ef4444; font-size: 19px; }
+.medicare-emergency-contact strong { color: #ef4444; font-size: 16px; }
+.medicare-emergency-contact a { background: #ef4444; border-radius: 5px; color: #fff; font-size: 9px; font-weight: 700; padding: 8px 13px; }
+.medicare-footer { background: #f4f8fb; border-top: 1px solid #e2edf4; color: #506176; margin-top: 20px; }
+.medicare-footer > div { margin: auto; max-width: 1180px; padding: 28px 22px; }
+.medicare-footer > div:first-child { display: grid; gap: 24px; grid-template-columns: 1.4fr repeat(3, 1fr); }
+.medicare-footer > div:last-child { border-top: 1px solid #e1ebf2; display: flex; font-size: 9px; justify-content: space-between; }
+.medicare-footer > div:first-child > div:first-child > div { align-items: center; display: flex; gap: 8px; }
+.medicare-footer > div:first-child > div:first-child > div > div { align-items: center; background: #fff; border-radius: 6px; color: var(--medicare-blue); display: flex; font-size: 20px; height: 27px; justify-content: center; width: 27px; }
+.medicare-footer span { color: var(--medicare-ink); font-size: 15px; }
+.medicare-footer p { font-size: 10px; line-height: 1.5; }
+.medicare-footer h3 { color: var(--medicare-ink); font-size: 10px; margin-bottom: 8px; }
+.medicare-footer li, .medicare-footer a { color: #607286; font-size: 9px; }
+.medicare-footer ul { display: grid; gap: 4px; }
+
+@media (max-width: 800px) {
+  .medicare-links { display: none; }
+  .medicare-hero-inner, .medicare-telehealth { grid-template-columns: 1fr; }
+  .medicare-hero-inner > div:first-child { padding: 34px 22px; }
+  .medicare-hero-image-wrap { height: 260px; }
+  .medicare-specialty-grid { grid-template-columns: repeat(2, 1fr); }
+  .medicare-doctor-grid, .medicare-testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+  .medicare-insurance { display: block; }
+  .medicare-insurance-grid { flex-wrap: wrap; }
+  .medicare-footer > div:first-child { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 520px) {
+  .medicare-nav { padding: 0 14px; }
+  .medicare-login { display: none; }
+  .medicare-content { padding: 0 14px 32px; }
+  .medicare-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .medicare-stat { border-bottom: 1px solid #edf1f4; }
+  .medicare-doctor-grid, .medicare-testimonial-grid { grid-template-columns: 1fr; }
+  .medicare-emergency { align-items: flex-start; flex-direction: column; gap: 10px; }
+}

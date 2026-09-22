@@ -24,7 +24,7 @@ const optimizelyFetch = async <Response, Variables = object>({
   query,
   variables,
   headers,
-  cache = 'force-cache',
+  cache = 'no-store',
   preview,
   cacheTag,
 }: OptimizelyFetch<Variables>): Promise<
@@ -101,3 +101,17 @@ async function requester<R, V>(
 }
 
 export const optimizely = getSdk(requester);
+
+export async function fetchOptimizely<T, V = Record<string, unknown>>(
+  query: string,
+  variables?: V,
+  options?: OptimizelyFetchOptions,
+): Promise<T> {
+  const response = await optimizelyFetch<T, V>({
+    query,
+    variables: variables ?? ({} as V),
+    ...options,
+  });
+
+  return response.data;
+}

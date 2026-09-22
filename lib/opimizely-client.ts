@@ -1,1 +1,0 @@
-export { optimizely } from "./optimizely/fetch";
