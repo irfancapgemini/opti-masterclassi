@@ -32,7 +32,7 @@ export function Footer({ settings }: { settings?: CmsSettings }) {
   const site = ((config?.GlobalSiteSettings as Array<Record<string, unknown>> | undefined) ?? [])[0] as Record<string, unknown> | undefined;
   const columns = (footer?.columns as Array<Record<string, unknown>> | undefined) ?? [];
   const socialLinks = (footer?.socialLinks as Array<Record<string, unknown>> | undefined) ?? [];
-  const siteName = String(site?.siteName ?? "DoctorCare");
+  const siteName = String(site?.siteName ?? "");
   const logo = (footer?.logo as Record<string, string> | undefined) ?? (site?.logo as Record<string, string> | undefined) ?? {
     url: "",
     alternativeText: "",
@@ -85,8 +85,21 @@ export function Footer({ settings }: { settings?: CmsSettings }) {
           <p>{String(footer?.copyright ?? "© 2026 DoctorCare. All rights reserved.")}</p>
           <div className="flex gap-4">
             {socialLinks.map((link, index) => (
-              <Link key={`${link?.label ?? "social"}-${index}`} href={String(link?.url ?? "/")} className="hover:text-slate-900">
-                {String(link?.label ?? "Social")}
+              <Link
+                key={`${link?.label ?? "social"}-${index}`}
+                href={String(link?.url ?? "/")}
+                className="inline-flex items-center gap-2 hover:text-slate-900"
+              >
+                {resolveImageUrl(link?.image) ? (
+                  <Image
+                    src={resolveImageUrl(link.image)}
+                    alt={String(link?.imageAlt ?? link?.label ?? "Social")}
+                    width={24}
+                    height={24}
+                    className="h-6 w-6 object-contain"
+                  />
+                ) : null}
+                <span>{String(link?.label ?? "Social")}</span>
               </Link>
             ))}
           </div>

@@ -101,9 +101,13 @@ function normalizeFooterSettings(value: Record<string, unknown> = {}): Record<st
     columns: toArray(footerSettings.columns ?? footerSettings.Columns ?? footerSettings.footerColumns ?? footerSettings.FooterColumns),
     socialLinks: socialLinks.map((item) => {
       const record = toObject(item) ?? {};
+      const logo = toObject(record.logo ?? record.Logo) ?? {};
+      const imageSource = Object.keys(logo).length > 0 ? logo : record.Image ?? record.image ?? record.Icon ?? record.icon;
       return {
         label: record.Platform ?? record.platform ?? record.label ?? record.Label ?? "Social",
         url: toUrl(record.url ?? record.Url ?? record.href ?? record.Href ?? record.link ?? record.Link),
+        image: toImage(imageSource),
+          imageAlt: logo.altText ?? logo.AltText ?? logo.Description ?? logo.description ?? "",
       };
     }),
     copyright: footerSettings.Copyright ?? footerSettings.copyright ?? footerSettings.CopyrightText ?? footerSettings.copyrightText ?? "© 2026 DoctorCare. All rights reserved.",
