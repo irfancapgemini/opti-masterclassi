@@ -20,7 +20,7 @@ export function InsurancePartnerListSection({ data }: InsurancePartnerListSectio
           return (
             <div key={`${item?.name ?? "partner"}-${index}`} className="medicare-insurance-logo">
               {logoUrl ? (
-                <Image src={logoUrl} alt={String(logo.alternativeText ?? item?.name ?? "Partner logo")} width={180} height={80} className="max-h-12 w-auto object-contain" />
+                <Image src={logoUrl} alt={String(logo.alternativeText ?? item?.name ?? "Partner logo")} width={220} height={100} className="max-h-20 w-auto object-contain" />
               ) : (
                 <span className="text-lg font-semibold text-slate-700">{String(item?.name ?? "Partner")}</span>
               )}

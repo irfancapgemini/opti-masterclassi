@@ -331,8 +331,8 @@ a { text-decoration: none; }
 .medicare-insurance { align-items: center; display: grid; grid-template-columns: 150px 1fr; }
 .medicare-insurance h2 { font-size: 13px; }
 .medicare-insurance-grid { display: flex; gap: 18px; }
-.medicare-insurance-logo { align-items: center; display: flex; height: 45px; justify-content: center; min-width: 80px; }
-.medicare-insurance-logo img { max-height: 31px; max-width: 80px; }
+.medicare-insurance-logo { align-items: center; display: flex; height: 88px; justify-content: center; min-width: 160px; }
+.medicare-insurance-logo img { max-height: 80px; max-width: 220px; }
 .medicare-insurance-logo span { color: #355a8c; font-size: 11px; font-weight: 700; }
 .medicare-emergency { align-items: center; background: #fff5f5; border: 1px solid #f8d8d8; border-radius: 8px; display: flex; justify-content: space-between; padding: 11px 18px; }
 .medicare-emergency p { color: #ef4444; font-size: 11px; font-weight: 700; margin: 0; }
